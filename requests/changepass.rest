@@ -1,0 +1,9 @@
+PUT http://localhost:8000/api/auth/change/
+Content-Type: application/json
+Authorization: Token 726b3c24102d045047c898f7d1909116aadc26fc6dd68449ea68410432657
+
+{
+    "old_password" : "johnone",
+    "new_password1" : "justfuns!",
+    "new_password2" : "justfuns!"
+}
