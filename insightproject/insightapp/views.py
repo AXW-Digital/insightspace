@@ -15,6 +15,9 @@ from .serializers import (
     PerustiedotSerializer
 )
 
+
+
+
 #user viewset
 class UserAPI(generics.RetrieveAPIView):
     permission_classes = [permissions.IsAuthenticated,]

@@ -1,7 +1,7 @@
 from django.conf.urls import include, url
 from django.urls import path, include
 from rest_framework import routers
-from .views import  (UserAPI, RegistrationAPI, LoginAPI, ChangePasswordAPI, AsiointiViewset, RuokalistaViewset, RavinVaikutuViewset, PerustiedotViewset)
+from .views import  (UserAPI, RegistrationAPI, LoginAPI, ChangePasswordAPI, AsiointiViewset, RuokalistaViewset, RavinVaikutuViewset, PerustiedotViewset )
 from knox.views import LoginView, LogoutView
 
 

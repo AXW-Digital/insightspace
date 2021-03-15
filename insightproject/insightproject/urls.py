@@ -5,6 +5,7 @@ from insightapp import endpoints
 
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(endpoints)),
