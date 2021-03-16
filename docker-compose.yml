@@ -1,0 +1,19 @@
+version: "3.7"
+
+services: 
+  app:
+    build: 
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./insightproject:/app
+    command: sh -c "python manage.py runserver 0.0.0.0:8000"
+    environment: 
+      - DEBUG=1
+  db:
+    image: postgres
+    environment: 
+      - POSTGRES_DB=insightdb
+      - POSTGRES_USER=administrator
+      - POSTGRES_PASSWORD=075l2q1O
