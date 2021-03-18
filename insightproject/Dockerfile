@@ -1,7 +1,7 @@
 # pull official base image
-FROM python:3.8 
+FROM python:3.8
 
-ENV PATH="/scripts:${PATH}"
+
 #maintainer
 LABEL Momodou Krubally "momodou.krubally@axwdigital.fi"
 # set environment variables
@@ -11,23 +11,11 @@ RUN mkdir /app
 WORKDIR /app
 
 # copy project
-COPY ./insightproject /app
-
-COPY ./scripts /scripts
-
-RUN chmod +x /scripts/*
-RUN mkdir -p /vol/web/media
-RUN mkdir -p /vol/web/static
-
-RUN adduser -D user
-RUN chown -R user:user /vol
-RUN chmod -R 755 /vol/web
-USER user
-
+COPY . /app
 
 # install dependencies
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
-
-CMD ["entrypoint.sh"]
+COPY ./entrypoint.sh /
+ENTRYPOINT ["sh", "/entrypoint.sh"]
 
