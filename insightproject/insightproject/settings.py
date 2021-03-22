@@ -20,6 +20,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #cors headers
+    'corsheaders',
     'knox',
     #insightapp
     'insightapp',
@@ -35,6 +37,7 @@ REST_FRAMEWORK = {
 }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -120,6 +123,12 @@ USE_L10N = True
 
 USE_TZ = True
 
+
+CORS_ALLOWED_ORIGINS = [
+    "https://example.com", #amazon frontti url tahan
+    "http://localhost:3000",
+    "http://127.0.0.1:8000"
+]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
