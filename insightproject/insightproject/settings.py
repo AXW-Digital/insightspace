@@ -9,10 +9,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY=os.environ.get("DJANGO_SECRET_KEY")
+SECRET_KEY=os.environ.get("SECRET_KEY", "hideme")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-ALLOWED_HOSTS = ['*']
+DEBUG = bool(int(os.environ.get("DEBUG", default=0)))
+
+#allowed hosts variable
+ALLOWED_HOSTS = []
+ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS')
+if ALLOWED_HOSTS_ENV:
+    ALLOWED_HOSTS.extend(ALLOWED_HOSTS_ENV.split(','))
+
 
 # Application definition
 INSTALLED_APPS = [
@@ -133,11 +139,12 @@ CORS_ALLOWED_ORIGINS = [
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 #static files
-STATIC_ROOT = '/static/'
-STATIC_URL = '/static/'
+STATIC_URL = '/static/static/'
+MEDIA_URL = '/static/media/'
 
-STATIC_ROOT = './static'
-MEDIA_ROOT = './media/'
+STATIC_ROOT = '/vol/web/static'
+MEDIA_ROOT = '/vol/web/media'
+
 
 AUTH_USER_MODEL = 'insightapp.User'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

@@ -1,30 +1,24 @@
-FROM python:3.6.6-alpine3.6
+# pull official base image
+FROM python:3.8.3-alpine
 
-
+ENV PATH="/scripts:${PATH}"
 #maintainer
 LABEL Momodou Krubally "momodou.krubally@axwdigital.fi"
-
-# Set Environment Variable
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-ENV C_FORCE_ROOT true
+# copy project
 
-# Making source and static directory
-RUN mkdir /src
-RUN mkdir /static
 
-# Creating Work Directory
-WORKDIR /src
 
-COPY ./insightproject /src
-# Update pip
 RUN pip install --upgrade pip
-# Adding mandatory packages to docker
+
 RUN apk update && apk add --no-cache \
     postgresql \
     zlib \
     jpeg 
 
-# Installing temporary packages required for installing requirements.pip 
+# install dependencies
 RUN apk add --no-cache --virtual build-deps \
     gcc \  
     python3-dev \ 
@@ -34,22 +28,37 @@ RUN apk add --no-cache --virtual build-deps \
     jpeg-dev \
     libressl-dev \
     libffi-dev 
-
+    
 
 
 RUN pip3 install setuptools-rust
+COPY ./requirements.txt /requirements.txt
+RUN pip install -r requirements.txt
 
 
-RUN mkdir /scripts
-# Installing requirements.pip from project
-COPY ./insightproject/requirements.pip /scripts
-RUN pip3 install --no-cache-dir -r /scripts/requirements.pip
-
-
-# removing temporary packages from docker and removing cache 
 RUN apk del build-deps && \
     find -type d -name __pycache__ -prune -exec rm -rf {} \; && \
     rm -rf ~/.cache/pip
+# removing temporary packages from docker and removing cache 
 
-# CMD will run when this dockerfile is running
-CMD ["sh", "-c", "python manage.py collectstatic --no-input; python manage.py migrate; gunicorn insightproject.wsgi -b 0.0.0.0:8000 "]
+RUN mkdir /app
+COPY ./insightproject /app
+WORKDIR /app
+COPY ./scripts /scripts
+
+COPY ./insightproject /app
+
+RUN chmod +x /scripts/*
+
+RUN mkdir -p /vol/web/media
+RUN mkdir -p /vol/web/static
+
+#add a nonroot user
+RUN adduser -D user
+RUN chown -R user:user /vol
+RUN chmod -R 755 /vol/web
+USER user
+
+
+
+CMD ["entrypoint.sh"]
