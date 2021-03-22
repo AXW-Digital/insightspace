@@ -1,0 +1,51 @@
+version: "3"
+
+volumes:
+  local_postgres_data: {}
+  static_volume:
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/src
+      - static_volume:/src/static
+      - ./config/nginx:/etc/nginx/conf.d
+    depends_on:
+      - web
+    networks:
+      - djangonetwork
+  web:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: web
+    depends_on:
+      - db
+    volumes:
+      - static_volume:/src/static
+      - ./insightproject:/src
+    expose:
+      - "8000"
+    env_file:
+      - .env
+    networks:
+      - djangonetwork
+  db:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    container_name: database
+    env_file:
+      - .env
+    volumes:
+      - local_postgres_data:/var/lib/postgresql/data
+    networks:
+      - djangonetwork
+
+networks:
+  djangonetwork:
+    driver: bridge

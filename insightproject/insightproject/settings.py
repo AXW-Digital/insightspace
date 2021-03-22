@@ -9,15 +9,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY=os.environ.get("DJANGO_SECRET_KEY", "dev_key")
+SECRET_KEY=os.environ.get("DJANGO_SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = bool(int(os.environ.get("DEBUG", default=0)))
-ALLOWED_HOSTS = ['0.0.0.0','localhost']
-#ALLOWED_HOSTS = [*]
+DEBUG = True
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 INSTALLED_APPS = [
-    
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -28,17 +26,15 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'rest_framework',
-    'corsheaders',
     #password resetting
     'django_rest_passwordreset',
-    
 ]
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',)
 }
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -131,11 +127,9 @@ USE_TZ = True
 STATIC_ROOT = '/static/'
 STATIC_URL = '/static/'
 
+STATIC_ROOT = './static'
+MEDIA_ROOT = './media/'
 
-#cors whitelist
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-]
 AUTH_USER_MODEL = 'insightapp.User'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
