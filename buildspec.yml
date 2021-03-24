@@ -4,8 +4,8 @@ phases:
       - "echo Build started on `date`"
       - "echo Building the Docker image..."
       - "docker-compose build"
-      - "docker tag insightspace_app 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend"
-      - "docker tag insightspace_proxy 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend_proxy"
+      - "docker tag src_app 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend"
+      - "docker tag src_proxy 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend_proxy"
 
   post_build: 
     commands: 
