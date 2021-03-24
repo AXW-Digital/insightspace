@@ -6,14 +6,14 @@ phases:
       - "docker-compose build"
       - "docker tag insightspace_app 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend"
       - "docker tag insightspace_proxy 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend_proxy"
-      - "docker tag db 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend_postgres"
+
   post_build: 
     commands: 
       - "echo Build completed on `date`"
       - "echo Pushing the Docker image..."
       - "docker push 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend"
-      - "docker push 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend_postgres"
       - "docker push 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend_proxy"
+
   pre_build: 
     commands: 
       - "echo Logging in to AWS..."
