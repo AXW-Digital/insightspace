@@ -3,7 +3,7 @@ phases:
     commands: 
       - "echo Build started on `date`"
       - "echo Building the Docker image..."
-      - "docker-compose up --build"
+      - "docker-compose build"
       - "docker tag insightspace_db_1 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend_postgres"
       - "docker tag insightspace_app_1 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend"
       - "docker tag insightspace_proxy_1 740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend_proxy"
