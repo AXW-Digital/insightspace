@@ -7,8 +7,8 @@ services:
     volumes:
       - static_data:/vol/web
       - ./insightproject:/app
-    env_file:
-      - ./.env.dev
+    # env_file:
+    #   - ./.env.dev
     depends_on:
       - db
   proxy:
