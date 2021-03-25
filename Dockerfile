@@ -9,7 +9,9 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 # copy project
 
-
+# curl install for aws ecs healthcheck
+RUN apt-get update; \
+    apt-get install -y --no-install-recommends curl;
 
 RUN pip install --upgrade pip
 
