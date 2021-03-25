@@ -10,8 +10,7 @@ ENV PYTHONUNBUFFERED 1
 # copy project
 
 # curl install for aws ecs healthcheck
-RUN apt-get update; \
-    apt-get install -y --no-install-recommends curl;
+RUN apk --no-cache add curl
 
 RUN pip install --upgrade pip
 
