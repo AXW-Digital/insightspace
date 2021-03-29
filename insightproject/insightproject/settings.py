@@ -14,7 +14,7 @@ SECRET_KEY=os.getenv("SECRET_KEY")
 DEBUG = bool(int(os.environ.get("DEBUG", default=0)))
 
 #allowed hosts variable
-ALLOWED_HOSTS = [*]
+ALLOWED_HOSTS = [*] 
 
 
 
