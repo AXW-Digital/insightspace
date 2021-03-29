@@ -1,5 +1,5 @@
 [{
-    "name": "insight_backend",
+    "name": "app",
     "imageUri": "740126133497.dkr.ecr.eu-north-1.amazonaws.com/insight_backend:latest"
     
 }]
